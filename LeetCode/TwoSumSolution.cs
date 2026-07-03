@@ -10,18 +10,19 @@ public class TwoSumSolution
     /// </summary>
     public int[] TwoSum(int[] nums, int target)
     {
-        //O(n^2)
+        var candidate = new Dictionary<int, int>();
+        
         for (var i = 0; i < nums.Length; i++)
         {
-            var first = nums[i];
-            var expected = target - first;
+            var n = nums[i];
+            var expected = target - n;
+            
+            if (candidate.TryGetValue(n, out var value))
+                return [value, i];
 
-            for (var x = i + 1; x < nums.Length; x++)
-            {
-                if (nums[x] == expected)
-                    return [i, x];
-            }
+            candidate.TryAdd(expected, i);
         }
-        throw new NotImplementedException();
+        
+        return [-1, -1];
     }
 }
